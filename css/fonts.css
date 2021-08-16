@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'NewYorkExtraLargeBold';
-	src: url('../fonts/NewYorkExtraLargeBold.eot');
+	src: url('../fonts/NewYorkExtraLargeBold/NewYorkExtraLargeBold.eot');
 	src: local('☺'), 
-	url('../fonts/NewYorkExtraLargeBold.woff') format('woff'),
-	 url('../fonts/NewYorkExtraLargeBold.ttf') format('truetype'), 
-	 url('../fonts/NewYorkExtraLargeBold.svg') format('svg');
+	url('../fonts/NewYorkExtraLargeBold/NewYorkExtraLargeBold.woff') format('woff'),
+	 url('../fonts/NewYorkExtraLargeBold/NewYorkExtraLargeBold.ttf') format('truetype'), 
+	 url('../fonts/NewYorkExtraLargeBold/NewYorkExtraLargeBold.svg') format('svg');
 	font-weight: 700;
 	font-style: normal;
 }

@@ -1,11 +1,44 @@
-$(function () {
 
-	// Custom JS
+const animItems = document.querySelectorAll('._anim-items');
 
-});
+if (animItems.length > 0) {
+	window.addEventListener('scroll', animOnScroll);
+	function animOnScroll() {
+		for (let index = 0; index < animItems.length; index++) {
+			const animItem = animItems[index];
+			const animItemHeight = animItem.offsetHeight;
+			const animItemOffset = offset(animItem).top;
+			const animStart = 4;
 
-//второй вариант
+			let animItemPoint = window.innerHeight - animItemHeight / animStart;
+			if (animItemHeight > window.innerHeight) {
+				animItemPoint = window.innerHeight - window.innerHeight / animStart;
+			}
+
+			if ((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
+				animItem.classList.add('_active');
+
+			} else {
+				animItem.classList.remove('_active');
+			}
+		}
+	}
+	function offset(el) {
+		const rect = el.getBoundingClientRect(),
+			scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+			scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+	}
+}
+
+
+
 $(document).ready(function () {
+	// $('.archmuve_list__item').animated('fadeInUp',"fadeOutDown");
+
+
+
+
 
 	$(".header-menu__burger").click(function () {
 		$(this).toggleClass("on");
@@ -21,7 +54,7 @@ $(document).ready(function () {
 		nextArrow: '<div class="slick-next"><img src="img/arrow-right.svg"></div>'
 	});
 	$('.sleider-photo').slick({
-		slidesToShow: 1,
+		slidesToShow: 3.5,
 		slidesToScroll: 1,
 		prevArrow: '<div class="slick-prev"><img src="img/arrow-left.svg"></div>',
 		nextArrow: '<div class="slick-next"><img src="img/arrow-right.svg"></div>',
@@ -31,24 +64,42 @@ $(document).ready(function () {
 	$('.btn').magnificPopup();
 
 });
-
+$('.popup_content').magnificPopup({ type: 'inline' });
 // Аякс отправка форм
 //Документация: http://api.jquery.com/jquery.ajax/
 $("#form").submit(function () {
+	var th = $(this);
 	$.ajax({
 		type: "POST",
 		url: "mail.php",
-		data: $(this).serialize()
+		data: th.serialize()
 	}).done(function () {
 		alert("Спасибо за заявку!");
 		setTimeout(function () {
 			$.magnificPopup.close();
+			th.trigger('reset');
 		}, 1000);
 	});
 	return false;
 });
+// код для плавной прокрутки
+$('a[href*="#"]').on('click', function (e) {
+	e.preventDefault();
 
+	$('html, body').animate({
+		scrollTop: $($(this).attr('href')).offset().top
+	}, 1200, 'linear');
+});
 
+$(".sleider-photo__item").each(function (i) {
+	$(this).find("a").attr("href", "#work_" + i);
+	$(this).find(".sleider-photo__descr").attr("id", "work_" + i);
+});
+
+// $("input, select, textarea").jqBootstrapValidation();
+
+// $(".top_mnu ul a").mPageScroll2id();
+;
 
 // ВОТ ЗДЕСЬ ЧТО ТО НЕ ТАК - Я НЕ МОГУ ПОНЯТЬ ЧТО!!!!!
 
@@ -66,7 +117,9 @@ window.onload = function () {
 }
 
 
-
+// AOS.init({
+// 	easing: 'ease-in-out-sine'
+// });
 
 
 
